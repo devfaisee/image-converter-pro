@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>Universal Image Converter Pro - HEIC to JPG & WebP PNG Multi-Converter</title>
+  <meta name="description" content="Convert image formats instantly in your browser. Supports HEIC, WebP, PNG, JPEG, and SVG. 100% private with no server uploads. Powered by client-side WebAssembly.">
+  <meta name="keywords" content="heic to jpg, webp to png, png to webp, browser image converter, client-side convert, offline heic converter">
+  
+  <!-- Premium Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Premium Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        Image Converter Pro
+        <span class="badge">client-side</span>
+      </div>
+      <div class="header-nav">
+        <div class="privacy-indicator" id="privacy-indicator" title="Your images never leave your device. Image conversion runs entirely inside your browser's local sandbox.">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Private Offline Conversion</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main>
+    
+    <!-- Left Column: Media & Conversion Config -->
+    <section class="control-pane">
+      
+      <!-- 1. Supply Image Source Card -->
+      <div class="glass-card">
+        <h2 class="pane-title"><i class="fa-solid fa-file-image"></i> 1. Supply Image Source</h2>
+        
+        <!-- Drag/Drop Zone -->
+        <div class="dropzone" id="dropzone">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <h3>Upload image file</h3>
+          <p>Drag and drop or click to browse</p>
+          <p class="file-limits">Supports HEIC, HEIF, PNG, JPEG, WEBP, SVG (Max 15MB)</p>
+          <input type="file" id="file-input" class="file-input" accept="image/*,.heic,.heif">
+        </div>
+
+        <!-- Image specifications -->
+        <div class="file-details" id="file-details">
+          <div class="detail-row">
+            <span>Filename:</span>
+            <span class="detail-val" id="detail-filename">photo.heic</span>
+          </div>
+          <div class="detail-row">
+            <span>Size:</span>
+            <span class="detail-val" id="detail-size">0.0 MB</span>
+          </div>
+          <div class="detail-row">
+            <span>Dimensions:</span>
+            <span class="detail-val" id="detail-dims">0 x 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Conversion Settings Card -->
+      <div class="glass-card">
+        <h2 class="pane-title"><i class="fa-solid fa-gear"></i> 2. Conversion Settings</h2>
+        
+        <div class="config-group">
+          <!-- Target Format Selection -->
+          <div>
+            <label class="input-label" for="target-format">Target Format</label>
+            <select id="target-format">
+              <option value="image/jpeg">JPEG (.jpg)</option>
+              <option value="image/png" selected>PNG (.png)</option>
+              <option value="image/webp">WebP (.webp)</option>
+            </select>
+          </div>
+
+          <!-- Quality Compression Slider -->
+          <div>
+            <label class="input-label" for="quality-range">
+              Export Quality
+              <span id="quality-display">80%</span>
+            </label>
+            <div class="range-slider-row">
+              <input type="range" class="config-range" id="quality-range" min="10" max="100" value="80">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. WebAssembly Progress Card (For HEIC WASM decoders) -->
+      <div class="glass-card progress-card" id="progress-card">
+        <div class="progress-header">
+          <span class="status-label" id="status-label"><i class="fa-solid fa-circle-notch fa-spin"></i> Initializing WebAssembly...</span>
+          <span class="status-percentage" id="status-percentage">100%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar" style="width: 100%;"></div>
+        </div>
+        <div class="progress-details">
+          <span id="progress-speed">Loading HEIC libraries...</span>
+        </div>
+      </div>
+
+      <!-- 4. Action Trigger Button Card -->
+      <div class="glass-card" style="padding: 1.25rem;">
+        <button class="transcribe-btn" id="transcribe-btn" disabled>
+          <span class="spinner" id="btn-spinner"></span>
+          <i class="fa-solid fa-arrow-right-arrow-left" id="btn-icon"></i>
+          <span id="btn-text">Load File & Convert</span>
+        </button>
+      </div>
+
+      <!-- 5. Premium Sponsor Ad Demo (100% Net Profit Showcase) -->
+      <div class="ad-slot">
+        <div class="ad-badge">Sponsored</div>
+        <div class="ad-img">
+          <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        </div>
+        <div class="ad-content">
+          <div class="ad-title">ImageShrink Pro</div>
+          <div class="ad-desc">Batch compress folders of high-resolution images by up to 90% client-side. Fast exports.</div>
+          <a href="#" class="ad-link" onclick="event.preventDefault(); alert('This is a highly tailored premium display ad demo. Because Image Converter Pro runs 100% in-browser, you have $0/month server hosting costs—meaning ad spaces like these deliver pure, high-margin profit.');">Learn More &rarr;</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Right Column: Visual Comparison Workstation -->
+    <section class="editor-pane">
+      <div class="glass-card editor-card">
+        
+        <!-- Editor Header Panel -->
+        <div class="editor-toolbar">
+          <div class="toolbar-group">
+            <span style="font-weight: 600; font-size: 0.95rem;">Conversion Workstation</span>
+          </div>
+          <div class="toolbar-group">
+            <button class="toolbar-btn primary-btn" id="download-btn" disabled title="Download Converted Image">
+              <i class="fa-solid fa-download"></i> Download Image
+            </button>
+            <button class="toolbar-btn" id="clear-editor-btn" disabled title="Remove current image">
+              <i class="fa-solid fa-trash-can"></i> Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- Before / After Comparative Workspace Slider Canvas -->
+        <div class="editor-body">
+          
+          <!-- Large Loading Placeholder overlay Screen -->
+          <div class="placeholder-screen" id="placeholder-screen">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <h3>No Active Document</h3>
+            <p>Upload a photo (HEIC, PNG, JPEG, or WebP) and click Convert to begin. Your comparative Before vs After slider view will appear in this workspace.</p>
+          </div>
+
+          <!-- Dynamic Comparison Split slider -->
+          <div class="comparison-slider" id="comparison-slider">
+            
+            <!-- Before Layer (Standard Original Image) -->
+            <img src="" alt="Original Image" class="slider-img" id="img-before">
+            <div class="slider-label label-before">Original</div>
+            
+            <!-- After Layer (Converted Output Image over transparent grid) -->
+            <div class="after-wrapper transparency-grid" id="after-wrapper">
+              <img src="" alt="Converted Image" class="slider-img" id="img-after">
+              <div class="slider-label label-after" id="after-format-label">PNG</div>
+            </div>
+            
+            <!-- Split Sliding Line Handle bar -->
+            <div class="slider-handle" id="slider-handle">
+              <div class="slider-handle-button">
+                <i class="fa-solid fa-arrows-left-right"></i>
+              </div>
+            </div>
+            
+            <!-- The Native Range Input covering workspace to capture absolute pointer positions -->
+            <input type="range" class="slider-input" id="slider-input" min="0" max="100" value="50">
+            
+          </div>
+
+        </div>
+
+        <!-- Editor Footer Metadata -->
+        <div class="editor-footer">
+          <span id="editor-status">Offline Sandbox Enabled</span>
+          <div id="conversion-metadata" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--secondary); display: none;">
+            Ratio: <span id="meta-ratio">0% Saved</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Load heic2any WebAssembly module via premium jsDelivr CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
